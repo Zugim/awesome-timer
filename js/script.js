@@ -90,16 +90,13 @@ function timerFunctionality(element, index) {
                     Number(timeUnit)
                 );
 
-                if (timers[index].time[2] > 0) {
+                if (
+                    timers[index].time[0] <= 0 &&
+                    timers[index].time[1] <= 0 &&
+                    timers[index].time[2] == 1
+                ) {
                     timers[index].time[2]--;
-                } else if (timers[index].time[1] > 0) {
-                    timers[index].time[1]--;
-                    timers[index].time[2] = 59;
-                } else if (timers[index].time[0] > 0) {
-                    timers[index].time[0]--;
-                    timers[index].time[1] = 59;
-                    timers[index].time[2] = 59;
-                } else {
+
                     timers[index].display.classList.add("finished");
                     timers[index].display.classList.remove("paused");
                     timers[index].display.classList.remove("timing");
@@ -113,6 +110,15 @@ function timerFunctionality(element, index) {
                     console.log(
                         `${timers[index].name.textContent} Timer Finished!`
                     );
+                } else if (timers[index].time[2] > 0) {
+                    timers[index].time[2]--;
+                } else if (timers[index].time[1] > 0) {
+                    timers[index].time[1]--;
+                    timers[index].time[2] = 59;
+                } else if (timers[index].time[0] > 0) {
+                    timers[index].time[0]--;
+                    timers[index].time[1] = 59;
+                    timers[index].time[2] = 59;
                 }
 
                 timers[index].time = timers[index].time.map((timeUnit) => {
