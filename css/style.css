@@ -72,6 +72,11 @@ input[type="submit"] {
     background-color: #f4f5f5;
 }
 
+button:disabled,
+button[disabled] {
+    color: #acabc4;
+}
+
 header {
     width: 30%;
     min-width: 325px;
