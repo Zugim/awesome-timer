@@ -2,8 +2,6 @@ const timerElements = document.querySelectorAll(".timer");
 
 const timers = [];
 
-let interval = [];
-
 timerElements.forEach((element, index) => {
     timerFunctionality(element, index);
 });
@@ -59,8 +57,11 @@ creationForm.addEventListener("submit", (event) => {
     timerFunctionality("", timers.length);
 });
 
+let interval = [];
+
 function timerFunctionality(element, index) {
     timers.push({
+        wrapper: document.querySelector(`#timer${index}`),
         name: document.querySelector(`#timer${index} .timer-name`),
         display: document.querySelector(`#timer${index} .timer-display`),
         startStopBtn: document.querySelector(
@@ -103,7 +104,15 @@ function timerFunctionality(element, index) {
                     timers[index].display.classList.remove("paused");
                     timers[index].display.classList.remove("timing");
 
+                    timers[index].wrapper.classList.add("finished");
+
+                    timers[index].startStopBtn.disabled = true;
+
                     clearInterval(interval[index]);
+
+                    console.log(
+                        `${timers[index].name.textContent} Timer Finished!`
+                    );
                 }
 
                 timers[index].time = timers[index].time.map((timeUnit) => {
@@ -134,10 +143,17 @@ function timerFunctionality(element, index) {
             timers[index].display.classList.remove("paused");
             timers[index].display.classList.remove("timing");
 
+            timers[index].wrapper.classList.remove("finished");
+
             clearInterval(interval[index]);
+
             timers[index].startStopBtn.classList.remove("timing");
             timers[index].display.textContent = timers[index].duration;
             timers[index].startStopBtn.textContent = "Start";
+
+            timers[index].time = timers[index].duration.split(":");
+
+            timers[index].startStopBtn.disabled = false;
 
             console.log(`${timers[index].name.textContent} Timer Reset!`);
         });

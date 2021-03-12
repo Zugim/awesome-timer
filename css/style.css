@@ -20,7 +20,7 @@ h2,
 h3 {
     margin-bottom: 1rem;
 
-    font-family: sans-serif;
+    font-family: "Roboto", sans-serif;
 
     color: #fff;
 }
@@ -38,14 +38,29 @@ h3 {
     line-height: 1.6;
 }
 
+ul {
+    padding-left: 2.4rem;
+}
+
+li {
+    padding-bottom: 1.8rem;
+    padding-left: 1rem;
+
+    font-size: 1.8rem;
+    font-family: "Roboto", sans-serif;
+
+    list-style-type: "⏳";
+}
+
 button,
 input {
     padding: 1rem;
 
     border: none;
+    border-radius: 2px;
 
     font-size: 1.6rem;
-    font-family: sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 button,
@@ -79,7 +94,7 @@ main {
     align-content: flex-start;
     gap: 1rem;
 
-    background-color: #fff;
+    background-color: #f4f5f5;
 }
 
 .wrapper {
@@ -90,6 +105,10 @@ main {
     font-style: normal;
 }
 
+.to-do-item {
+    font-style: italic;
+}
+
 .webpage-title {
     font-style: italic;
 }
@@ -98,6 +117,8 @@ main {
     margin-top: 2.4rem;
 
     padding: 1rem;
+
+    border-radius: 2px;
 
     background-color: #878e88;
 }
@@ -126,26 +147,47 @@ main {
     width: 100%;
 }
 
-.timer {
-    width: 25%;
-    min-width: 250px;
+.coming-soon {
+    margin-top: 2.4rem;
 
     padding: 1rem;
+
+    border-radius: 2px;
+
+    background-color: #f4f5f5;
+}
+
+.coming-soon h2 {
+    margin-bottom: 1.8rem;
+
+    color: #000;
+}
+
+.timer {
+    width: 300px;
+
+    padding: 1rem;
+
+    border-radius: 2px;
+
+    box-shadow: 2px 2px #d5d7d6;
 
     background-color: #e57a44;
 }
 
 .timer-display {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 
     padding: 1rem;
 
-    border: 1.5px solid #fff;
+    border: 1.5px solid #f4f5f5;
+    border-radius: 2px;
 
-    background-color: #fff;
+    background-color: #f4f5f5;
 
-    font-size: 2.4rem;
-    font-family: sans-serif;
+    font-size: 3.2rem;
+    font-family: "Inconsolata", monospace;
+    font-style: medium;
 }
 
 .timer-btns {
@@ -176,4 +218,27 @@ main {
     border: 1.5px solid #ed665a;
 
     background-color: #f5aaa3;
+}
+
+.timer.finished {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(-1px);
+    }
+    25% {
+        transform: translateX(1px);
+    }
+    50% {
+        transform: translateX(-1px);
+    }
+    75% {
+        transform: translateX(1px);
+    }
+    100% {
+        transform: translateX(-1px);
+    }
 }
