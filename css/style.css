@@ -140,6 +140,8 @@ main {
 
     padding: 1rem;
 
+    border: 1.5px solid #fff;
+
     background-color: #fff;
 
     font-size: 2.4rem;
@@ -156,4 +158,22 @@ main {
 
 .timer-reset-btn {
     flex: 1;
+}
+
+.timer-display.timing {
+    border: 1.5px solid #78e44e;
+
+    background-color: #8de969;
+}
+
+.timer-display.paused {
+    border: 1.5px solid #fee948;
+
+    background-color: #feed72;
+}
+
+.timer-display.finished {
+    border: 1.5px solid #ed665a;
+
+    background-color: #f5aaa3;
 }

@@ -79,6 +79,9 @@ function timerFunctionality(element, index) {
         timers[index].startStopBtn.classList.toggle("timing");
 
         if (timers[index].startStopBtn.classList.contains("timing")) {
+            timers[index].display.classList.add("timing");
+            timers[index].display.classList.remove("paused");
+
             interval[index] = setInterval(() => {
                 console.log(`Timing ${timers[index].name.textContent}!`);
 
@@ -95,6 +98,12 @@ function timerFunctionality(element, index) {
                     timers[index].time[0]--;
                     timers[index].time[1] = 59;
                     timers[index].time[2] = 59;
+                } else {
+                    timers[index].display.classList.add("finished");
+                    timers[index].display.classList.remove("paused");
+                    timers[index].display.classList.remove("timing");
+
+                    clearInterval(interval[index]);
                 }
 
                 timers[index].time = timers[index].time.map((timeUnit) => {
@@ -111,6 +120,9 @@ function timerFunctionality(element, index) {
 
             console.log(`${timers[index].name.textContent} Timer Started!`);
         } else {
+            timers[index].display.classList.add("paused");
+            timers[index].display.classList.remove("timing");
+
             clearInterval(interval[index]);
             timers[index].startStopBtn.textContent = "Start";
 
@@ -118,6 +130,10 @@ function timerFunctionality(element, index) {
         }
 
         timers[index].resetBtn.addEventListener("click", () => {
+            timers[index].display.classList.remove("finished");
+            timers[index].display.classList.remove("paused");
+            timers[index].display.classList.remove("timing");
+
             clearInterval(interval[index]);
             timers[index].startStopBtn.classList.remove("timing");
             timers[index].display.textContent = timers[index].duration;
