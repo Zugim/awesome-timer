@@ -5,6 +5,61 @@ const timers = [];
 let interval = [];
 
 timerElements.forEach((element, index) => {
+    timerFunctionality(element, index);
+});
+
+const creationForm = document.querySelector(".timer-creation-form");
+const creationName = document.querySelector(
+    '.timer-creation-form input[type="text"]'
+);
+let creationDuration = document.querySelectorAll(".timer-creation-time input");
+let creationTime;
+const creationButton = document.querySelector(".timer-creation-create-btn");
+const main = document.querySelector("main");
+
+creationForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    creationDuration.forEach((timeUnit) => {
+        if (timeUnit.value <= 9) timeUnit.value = "0" + Number(timeUnit.value);
+    });
+
+    let tmpTimer = document.createElement("div");
+    tmpTimer.setAttribute("id", `timer${timers.length}`);
+    tmpTimer.classList.add("timer");
+    main.appendChild(tmpTimer);
+
+    let tmpElement = document.createElement("h3");
+    tmpElement.classList.add("timer-name");
+    tmpElement.textContent = creationName.value;
+    tmpTimer.appendChild(tmpElement);
+
+    tmpElement = document.createElement("div");
+    tmpElement.classList.add("timer-display");
+    tmpElement.textContent = `${creationDuration[0].value}:${creationDuration[1].value}:${creationDuration[2].value}`;
+    tmpTimer.appendChild(tmpElement);
+
+    tmpWrapper = document.createElement("div");
+    tmpWrapper.classList.add("wrapper", "timer-btns");
+    tmpTimer.appendChild(tmpWrapper);
+
+    tmpElement = document.createElement("button");
+    tmpElement.classList.add("timer-start-stop-btn");
+    tmpElement.textContent = "Start";
+    tmpWrapper.appendChild(tmpElement);
+
+    tmpElement = document.createElement("button");
+    tmpElement.classList.add("timer-reset-btn");
+    tmpElement.textContent = "Reset";
+    tmpWrapper.appendChild(tmpElement);
+
+    creationName.value = "";
+    creationDuration.forEach((timeUnit) => (timeUnit.value = ""));
+
+    timerFunctionality("", timers.length);
+});
+
+function timerFunctionality(element, index) {
     timers.push({
         name: document.querySelector(`#timer${index} .timer-name`),
         display: document.querySelector(`#timer${index} .timer-display`),
@@ -71,4 +126,4 @@ timerElements.forEach((element, index) => {
             console.log(`${timers[index].name.textContent} Timer Reset!`);
         });
     });
-});
+}
