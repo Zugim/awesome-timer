@@ -22,7 +22,7 @@ h3 {
 
     font-family: "Roboto", sans-serif;
 
-    color: #fff;
+    color: #f4f5f5;
 }
 
 h1 {
@@ -48,6 +48,7 @@ li {
 
     font-size: 1.8rem;
     font-family: "Roboto", sans-serif;
+    color: #242331;
 
     list-style-type: "⏳";
 }
@@ -61,6 +62,7 @@ input {
 
     font-size: 1.6rem;
     font-family: "Roboto", sans-serif;
+    color: #242331;
 }
 
 button,
@@ -160,7 +162,7 @@ main {
 .coming-soon h2 {
     margin-bottom: 1.8rem;
 
-    color: #000;
+    color: #242331;
 }
 
 .timer {
@@ -180,7 +182,6 @@ main {
 
     padding: 1rem;
 
-    border: 1.5px solid #f4f5f5;
     border-radius: 2px;
 
     background-color: #f4f5f5;
@@ -188,6 +189,7 @@ main {
     font-size: 3.2rem;
     font-family: "Inconsolata", monospace;
     font-style: medium;
+    color: #242331;
 }
 
 .timer-btns {
@@ -203,20 +205,14 @@ main {
 }
 
 .timer-display.timing {
-    border: 1.5px solid #78e44e;
-
     background-color: #8de969;
 }
 
 .timer-display.paused {
-    border: 1.5px solid #fee948;
-
     background-color: #feed72;
 }
 
 .timer-display.finished {
-    border: 1.5px solid #ed665a;
-
     background-color: #f5aaa3;
 }
 
