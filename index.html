@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Awesome Timer! ⏳</title>
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <h1 class="webpage-title">
+                    Awesome Timer! <span class="emoji">⏳</span>
+                </h1>
+                <div class="timer-creation">
+                    <h2 class="timer-creation-title">Add a new timer</h2>
+                    <form class="timer-creation-form">
+                        <input
+                            class="timer-creation-name"
+                            type="text"
+                            placeholder="Enter timer name"
+                            required
+                        />
+                        <div class="wrapper timer-creation-time">
+                            <input
+                                class="hrs"
+                                type="number"
+                                min="0"
+                                max="99"
+                                placeholder="hrs."
+                            />
+                            <input
+                                class="mins"
+                                type="number"
+                                min="0"
+                                max="60"
+                                placeholder="mins."
+                            />
+                            <input
+                                class="secs"
+                                type="number"
+                                min="0"
+                                max="60"
+                                placeholder="secs."
+                            />
+                        </div>
+                        <input
+                            class="timer-creation-create-btn"
+                            type="submit"
+                            value="Create Timer!"
+                        />
+                    </form>
+                </div>
+            </header>
+            <main>
+                <div id="timer0" class="timer">
+                    <h3 class="timer-name">Test 🧪</h3>
+                    <div class="timer-display">01:01:10</div>
+                    <div class="wrapper timer-btns">
+                        <button class="timer-start-stop-btn">Start</button>
+                        <button class="timer-reset-btn">Reset</button>
+                    </div>
+                </div>
+                <div id="timer1" class="timer">
+                    <h3 class="timer-name">Pasta 🍝</h3>
+                    <div class="timer-display">00:09:00</div>
+                    <div class="wrapper timer-btns">
+                        <button class="timer-start-stop-btn">Start</button>
+                        <button class="timer-reset-btn">Reset</button>
+                    </div>
+                </div>
+                <div id="timer2" class="timer">
+                    <h3 class="timer-name">Veggies 🥦</h3>
+                    <div class="timer-display">0:15:30</div>
+                    <div class="wrapper timer-btns">
+                        <button class="timer-start-stop-btn">Start</button>
+                        <button class="timer-reset-btn">Reset</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="js/script.js"></script>
+    </body>
+</html>
