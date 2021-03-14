@@ -1,27 +1,31 @@
 const timerElements = document.querySelectorAll(".timer");
 
-const timers = [];
-
-timerElements.forEach((element, index) => {
-    timerFunctionality(element, index);
-});
-
-const creationForm = document.querySelector(".timer-creation-form");
+const creationForm = document.querySelector(".creation-form");
 const creationName = document.querySelector(
-    '.timer-creation-form input[type="text"]'
+    '.creation-form input[type="text"]'
 );
-let creationDuration = document.querySelectorAll(".timer-creation-time input");
-let creationTime;
-const creationButton = document.querySelector(".timer-creation-create-btn");
+let creationDuration = document.querySelectorAll(".creation-time input");
+const creationButton = document.querySelector(".creation-create-btn");
+
 const main = document.querySelector("main");
 
+const timers = [];
+
+// initialize existing timers
+timerElements.forEach((timer, index) => {
+    initializeTimer(timer, index);
+});
+
 creationForm.addEventListener("submit", (event) => {
+    // stops the page refreshing on submit
     event.preventDefault();
 
+    // adds leading 0s to the time units ready for display
     creationDuration.forEach((timeUnit) => {
         if (timeUnit.value <= 9) timeUnit.value = "0" + Number(timeUnit.value);
     });
 
+    // adds the new timer to the document
     let tmpTimer = document.createElement("div");
     tmpTimer.setAttribute("id", `timer${timers.length}`);
     tmpTimer.classList.add("timer");
@@ -51,17 +55,18 @@ creationForm.addEventListener("submit", (event) => {
     tmpElement.textContent = "Reset";
     tmpWrapper.appendChild(tmpElement);
 
+    // initialize created timer
+    initializeTimer("", timers.length);
+
+    // resets the creation form
     creationName.value = "";
     creationDuration.forEach((timeUnit) => (timeUnit.value = ""));
-
-    timerFunctionality("", timers.length);
 });
 
-let interval = [];
-
-function timerFunctionality(element, index) {
+function initializeTimer(element, index) {
+    // adds the timer to the timers array
     timers.push({
-        wrapper: document.querySelector(`#timer${index}`),
+        timer: document.querySelector(`#timer${index}`),
         name: document.querySelector(`#timer${index} .timer-name`),
         display: document.querySelector(`#timer${index} .timer-display`),
         startStopBtn: document.querySelector(
@@ -70,98 +75,105 @@ function timerFunctionality(element, index) {
         resetBtn: document.querySelector(`#timer${index} .timer-reset-btn`),
         duration: "00:00:00",
         time: "00:00:00",
+        interval: null,
     });
 
+    // sets the timers duration so the timer can be reset later
     timers[index].duration = timers[index].display.textContent;
+    // splits the timer duration into secs, mins and hrs
     timers[index].time = timers[index].duration.split(":");
-    timers[index].time = timers[index].time.map((timeUnit) => Number(timeUnit));
 
     timers[index].startStopBtn.addEventListener("click", () => {
-        timers[index].startStopBtn.classList.toggle("timing");
-
-        if (timers[index].startStopBtn.classList.contains("timing")) {
-            timers[index].display.classList.add("timing");
-            timers[index].display.classList.remove("paused");
-
-            interval[index] = setInterval(() => {
-                console.log(`Timing ${timers[index].name.textContent}!`);
-
-                timers[index].time = timers[index].time.map((timeUnit) =>
-                    Number(timeUnit)
-                );
-
-                if (
-                    timers[index].time[0] <= 0 &&
-                    timers[index].time[1] <= 0 &&
-                    timers[index].time[2] == 1
-                ) {
-                    timers[index].time[2]--;
-
-                    timers[index].display.classList.add("finished");
-                    timers[index].display.classList.remove("paused");
-                    timers[index].display.classList.remove("timing");
-
-                    timers[index].wrapper.classList.add("finished");
-
-                    timers[index].startStopBtn.disabled = true;
-
-                    clearInterval(interval[index]);
-
-                    console.log(
-                        `${timers[index].name.textContent} Timer Finished!`
-                    );
-                } else if (timers[index].time[2] > 0) {
-                    timers[index].time[2]--;
-                } else if (timers[index].time[1] > 0) {
-                    timers[index].time[1]--;
-                    timers[index].time[2] = 59;
-                } else if (timers[index].time[0] > 0) {
-                    timers[index].time[0]--;
-                    timers[index].time[1] = 59;
-                    timers[index].time[2] = 59;
-                }
-
-                timers[index].time = timers[index].time.map((timeUnit) => {
-                    if (timeUnit <= 9) return "0" + timeUnit;
-                    return timeUnit;
-                });
-
-                timers[
-                    index
-                ].display.textContent = `${timers[index].time[0]}:${timers[index].time[1]}:${timers[index].time[2]}`;
-            }, 1000);
-
-            timers[index].startStopBtn.textContent = "Stop";
-
-            console.log(`${timers[index].name.textContent} Timer Started!`);
-        } else {
-            timers[index].display.classList.add("paused");
-            timers[index].display.classList.remove("timing");
-
-            clearInterval(interval[index]);
-            timers[index].startStopBtn.textContent = "Start";
-
-            console.log(`${timers[index].name.textContent} Timer Stopped!`);
-        }
-
-        timers[index].resetBtn.addEventListener("click", () => {
-            timers[index].display.classList.remove("finished");
-            timers[index].display.classList.remove("paused");
-            timers[index].display.classList.remove("timing");
-
-            timers[index].wrapper.classList.remove("finished");
-
-            clearInterval(interval[index]);
-
-            timers[index].startStopBtn.classList.remove("timing");
-            timers[index].display.textContent = timers[index].duration;
-            timers[index].startStopBtn.textContent = "Start";
-
-            timers[index].time = timers[index].duration.split(":");
-
-            timers[index].startStopBtn.disabled = false;
-
-            console.log(`${timers[index].name.textContent} Timer Reset!`);
-        });
+        timerFunctionality(element, index);
     });
+
+    timers[index].resetBtn.addEventListener("click", () =>
+        resetTimer(element, index)
+    );
+}
+
+function timerFunctionality(element, index) {
+    timers[index].startStopBtn.classList.toggle("timing");
+
+    if (timers[index].startStopBtn.classList.contains("timing")) {
+        timers[index].display.classList.add("timing");
+        timers[index].display.classList.remove("paused");
+
+        timers[index].interval = setInterval(() => {
+            // converts time units into numbers for calculations (remove leading zeros)
+            timers[index].time = timers[index].time.map((timeUnit) =>
+                Number(timeUnit)
+            );
+
+            // check if timer has finished
+            if (
+                timers[index].time[0] <= 0 &&
+                timers[index].time[1] <= 0 &&
+                timers[index].time[2] == 1
+            ) {
+                timers[index].time[2]--;
+
+                timers[index].timer.classList.add("finished");
+
+                timers[index].display.classList.add("finished");
+                timers[index].display.classList.remove("timing");
+
+                timers[index].startStopBtn.disabled = true;
+
+                clearInterval(timers[index].interval);
+
+                // secs
+            } else if (timers[index].time[2] > 0) {
+                timers[index].time[2]--;
+                // mins
+            } else if (timers[index].time[1] > 0) {
+                timers[index].time[1]--;
+                timers[index].time[2] = 59;
+                // hrs
+            } else if (timers[index].time[0] > 0) {
+                timers[index].time[0]--;
+                timers[index].time[1] = 59;
+                timers[index].time[2] = 59;
+            }
+
+            // adds leading 0s to the time units ready for display
+            timers[index].time = timers[index].time.map((timeUnit) => {
+                if (timeUnit <= 9) return "0" + timeUnit;
+                return timeUnit;
+            });
+
+            //displays the time
+            timers[
+                index
+            ].display.textContent = `${timers[index].time[0]}:${timers[index].time[1]}:${timers[index].time[2]}`;
+        }, 1000);
+
+        timers[index].startStopBtn.textContent = "Stop";
+    } else {
+        timers[index].display.classList.add("paused");
+        timers[index].display.classList.remove("timing");
+
+        timers[index].startStopBtn.textContent = "Start";
+
+        clearInterval(timers[index].interval);
+    }
+}
+
+function resetTimer(element, index) {
+    timers[index].timer.classList.remove("finished");
+
+    timers[index].display.classList.remove("finished");
+    timers[index].display.classList.remove("paused");
+    timers[index].display.classList.remove("timing");
+
+    timers[index].startStopBtn.classList.remove("timing");
+
+    timers[index].startStopBtn.textContent = "Start";
+
+    timers[index].startStopBtn.disabled = false;
+
+    clearInterval(timers[index].interval);
+
+    timers[index].display.textContent = timers[index].duration;
+    timers[index].time = timers[index].duration.split(":");
 }

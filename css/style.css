@@ -75,6 +75,7 @@ input[type="submit"] {
 button:disabled,
 button[disabled] {
     color: #acabc4;
+    cursor: default;
 }
 
 header {
@@ -120,7 +121,7 @@ main {
     font-style: italic;
 }
 
-.timer-creation {
+.creation {
     margin-top: 2.4rem;
 
     padding: 1rem;
@@ -130,27 +131,27 @@ main {
     background-color: #878e88;
 }
 
-.timer-creation-form {
+.creation-form {
     display: grid;
     gap: 0.5rem;
 }
 
-.timer-creation-name {
+.creation-name {
     width: 100%;
 }
 
-.timer-creation-time {
+.creation-time {
     width: 100%;
 
     justify-content: space-between;
     gap: 0.5rem;
 }
 
-.timer-creation-time input {
+.creation-time input {
     flex: 1;
 }
 
-.timer-creation-create-btn {
+.creation-create-btn {
     width: 100%;
 }
 
@@ -182,6 +183,11 @@ main {
     background-color: #e57a44;
 }
 
+.timer.finished {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+
 .timer-display {
     margin-bottom: 0.5rem;
 
@@ -197,18 +203,6 @@ main {
     color: #242331;
 }
 
-.timer-btns {
-    gap: 0.5rem;
-}
-
-.timer-start-stop-btn {
-    flex: 2;
-}
-
-.timer-reset-btn {
-    flex: 1;
-}
-
 .timer-display.timing {
     background-color: #8de969;
 }
@@ -221,9 +215,16 @@ main {
     background-color: #f5aaa3;
 }
 
-.timer.finished {
-    animation: shake 0.5s;
-    animation-iteration-count: infinite;
+.timer-btns {
+    gap: 0.5rem;
+}
+
+.timer-start-stop-btn {
+    flex: 2;
+}
+
+.timer-reset-btn {
+    flex: 1;
 }
 
 @keyframes shake {
