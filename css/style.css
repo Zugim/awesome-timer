@@ -20,7 +20,7 @@ h2,
 h3 {
     margin-bottom: 1rem;
 
-    font-family: "Roboto", sans-serif;
+    font-family: sans-serif;
 
     color: #f4f5f5;
 }
@@ -47,7 +47,7 @@ li {
     padding-left: 1rem;
 
     font-size: 1.8rem;
-    font-family: "Roboto", sans-serif;
+    font-family: sans-serif;
     color: #242331;
 
     list-style-type: "⏳";
@@ -75,6 +75,7 @@ input[type="submit"] {
 button:disabled,
 button[disabled] {
     color: #acabc4;
+
     cursor: default;
 }
 

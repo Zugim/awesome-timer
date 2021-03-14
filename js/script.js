@@ -1,9 +1,7 @@
 const timerElements = document.querySelectorAll(".timer");
 
 const creationForm = document.querySelector(".creation-form");
-const creationName = document.querySelector(
-    '.creation-form input[type="text"]'
-);
+const creationName = document.querySelector('.creation-form input[type="text"]');
 let creationDuration = document.querySelectorAll(".creation-time input");
 const creationButton = document.querySelector(".creation-create-btn");
 
@@ -69,9 +67,7 @@ function initializeTimer(element, index) {
         timer: document.querySelector(`#timer${index}`),
         name: document.querySelector(`#timer${index} .timer-name`),
         display: document.querySelector(`#timer${index} .timer-display`),
-        startStopBtn: document.querySelector(
-            `#timer${index} .timer-start-stop-btn`
-        ),
+        startStopBtn: document.querySelector(`#timer${index} .timer-start-stop-btn`),
         resetBtn: document.querySelector(`#timer${index} .timer-reset-btn`),
         duration: "00:00:00",
         time: "00:00:00",
@@ -87,9 +83,7 @@ function initializeTimer(element, index) {
         timerFunctionality(element, index);
     });
 
-    timers[index].resetBtn.addEventListener("click", () =>
-        resetTimer(element, index)
-    );
+    timers[index].resetBtn.addEventListener("click", () => resetTimer(element, index));
 }
 
 function timerFunctionality(element, index) {
@@ -100,17 +94,11 @@ function timerFunctionality(element, index) {
         timers[index].display.classList.remove("paused");
 
         timers[index].interval = setInterval(() => {
-            // converts time units into numbers for calculations (remove leading zeros)
-            timers[index].time = timers[index].time.map((timeUnit) =>
-                Number(timeUnit)
-            );
+            // converts time units into numbers to remove leading zeros
+            timers[index].time = timers[index].time.map((timeUnit) => Number(timeUnit));
 
             // check if timer has finished
-            if (
-                timers[index].time[0] <= 0 &&
-                timers[index].time[1] <= 0 &&
-                timers[index].time[2] == 1
-            ) {
+            if (timers[index].time[0] <= 0 && timers[index].time[1] <= 0 && timers[index].time[2] == 1) {
                 timers[index].time[2]--;
 
                 timers[index].timer.classList.add("finished");
@@ -121,16 +109,16 @@ function timerFunctionality(element, index) {
                 timers[index].startStopBtn.disabled = true;
 
                 clearInterval(timers[index].interval);
-
-                // secs
-            } else if (timers[index].time[2] > 0) {
-                timers[index].time[2]--;
-                // mins
-            } else if (timers[index].time[1] > 0) {
+            }
+            // secs
+            else if (timers[index].time[2] > 0) timers[index].time[2]--;
+            // mins
+            else if (timers[index].time[1] > 0) {
                 timers[index].time[1]--;
                 timers[index].time[2] = 59;
-                // hrs
-            } else if (timers[index].time[0] > 0) {
+            }
+            // hrs
+            else if (timers[index].time[0] > 0) {
                 timers[index].time[0]--;
                 timers[index].time[1] = 59;
                 timers[index].time[2] = 59;
