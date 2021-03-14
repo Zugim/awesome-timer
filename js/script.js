@@ -130,10 +130,9 @@ function timerFunctionality(element, index) {
                 return timeUnit;
             });
 
+            // prettier-ignore
             //displays the time
-            timers[
-                index
-            ].display.textContent = `${timers[index].time[0]}:${timers[index].time[1]}:${timers[index].time[2]}`;
+            timers[index].display.textContent = `${timers[index].time[0]}:${timers[index].time[1]}:${timers[index].time[2]}`;
         }, 1000);
 
         timers[index].startStopBtn.textContent = "Stop";
