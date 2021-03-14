@@ -10,16 +10,14 @@ const main = document.querySelector("main");
 const timers = [];
 
 // initialize existing timers
-timerElements.forEach((timer, index) => {
-    initializeTimer(timer, index);
-});
+timerElements.forEach((timer, index) => initializeTimer(timer, index));
 
-creationForm.addEventListener("submit", (event) => {
+creationForm.addEventListener("submit", event => {
     // stops the page refreshing on submit
     event.preventDefault();
 
     // adds leading 0s to the time units ready for display
-    creationDuration.forEach((timeUnit) => {
+    creationDuration.forEach(timeUnit => {
         if (timeUnit.value <= 9) timeUnit.value = "0" + Number(timeUnit.value);
     });
 
@@ -58,7 +56,7 @@ creationForm.addEventListener("submit", (event) => {
 
     // resets the creation form
     creationName.value = "";
-    creationDuration.forEach((timeUnit) => (timeUnit.value = ""));
+    creationDuration.map(timeUnit => (timeUnit.value = ""));
 });
 
 function initializeTimer(element, index) {
@@ -79,9 +77,7 @@ function initializeTimer(element, index) {
     // splits the timer duration into secs, mins and hrs
     timers[index].time = timers[index].duration.split(":");
 
-    timers[index].startStopBtn.addEventListener("click", () => {
-        timerFunctionality(element, index);
-    });
+    timers[index].startStopBtn.addEventListener("click", () => timerFunctionality(element, index));
 
     timers[index].resetBtn.addEventListener("click", () => resetTimer(element, index));
 }
@@ -95,7 +91,7 @@ function timerFunctionality(element, index) {
 
         timers[index].interval = setInterval(() => {
             // converts time units into numbers to remove leading zeros
-            timers[index].time = timers[index].time.map((timeUnit) => Number(timeUnit));
+            timers[index].time = timers[index].time.map(timeUnit => Number(timeUnit));
 
             // check if timer has finished
             if (timers[index].time[0] <= 0 && timers[index].time[1] <= 0 && timers[index].time[2] == 1) {
@@ -125,7 +121,7 @@ function timerFunctionality(element, index) {
             }
 
             // adds leading 0s to the time units ready for display
-            timers[index].time = timers[index].time.map((timeUnit) => {
+            timers[index].time = timers[index].time.map(timeUnit => {
                 if (timeUnit <= 9) return "0" + timeUnit;
                 return timeUnit;
             });
